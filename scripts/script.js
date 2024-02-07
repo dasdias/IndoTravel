@@ -1,2 +1,10 @@
-const timer = document.querySelector('.timer');
-console.log('timer: ', timer);
+import {timer} from '/modules/timer.js';
+
+
+const timerInit = () => {
+  const timerElem = document.querySelector('.timer');
+  const dataDedline = timerElem.dataset.deadline;
+  timer(dataDedline);
+};
+
+timerInit();
