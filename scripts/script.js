@@ -1,3 +1,4 @@
+import {menu} from '/modules/menu.js';
 import {accordion} from '/modules/accordion.js';
 import {timer} from '/modules/timer.js';
 
@@ -11,6 +12,11 @@ const timerInit = () => {
 const initTabs = () => {
   accordion();
 };
+
+const initMenu = () => {
+  menu();
+};
 initTabs();
 timerInit();
+initMenu();
 
