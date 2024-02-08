@@ -1,3 +1,4 @@
+import {accordion} from '/modules/accordion.js';
 import {timer} from '/modules/timer.js';
 
 
@@ -7,4 +8,9 @@ const timerInit = () => {
   timer(dataDedline);
 };
 
+const initTabs = () => {
+  accordion();
+};
+initTabs();
 timerInit();
+
