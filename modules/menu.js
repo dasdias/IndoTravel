@@ -10,8 +10,10 @@ export const menu = () => {
 
   document.addEventListener('click', (e) => {
     const target = e.target;
+
     if (!target.closest('.header__menu') &&
-      headerMenu.classList.contains('header__menu_active')) {
+        headerMenu.classList.contains('header__menu_active') &&
+        !target.closest('.header__menu-button')) {
       headerMenu.classList.remove('header__menu_active');
     }
 
