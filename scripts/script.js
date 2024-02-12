@@ -1,6 +1,7 @@
 import {menu} from '/modules/menu.js';
 import {accordion} from '/modules/accordion.js';
 import {timer} from '/modules/timer.js';
+import {flyOnScroll} from '/modules/animate.js';
 
 
 const timerInit = () => {
@@ -19,4 +20,5 @@ const initMenu = () => {
 initTabs();
 timerInit();
 initMenu();
+flyOnScroll();
 
