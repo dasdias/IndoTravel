@@ -49,9 +49,10 @@ export const flyOnScroll = () => {
   window.addEventListener('resize', () => {
     clientWidth = docEl.clientWidth;
     if (clientWidth < 758) {
+      console.log('flyElem: ', flyElem);
       if (flyElem) {
         console.log('remove');
-        flyElem?.remove();
+        flyElem.remove();
       }
       flyElemAvalible = true;
     } else {
