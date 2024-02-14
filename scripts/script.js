@@ -3,6 +3,7 @@ import {accordion} from '/modules/accordion.js';
 import {timer} from '/modules/timer.js';
 import {flyOnScroll} from '/modules/animateScroll.js';
 import {menuAnimation} from '/modules/menuanimation.js';
+import {renderData} from '/modules/getdata.js';
 
 
 const timerInit = () => {
@@ -23,4 +24,5 @@ timerInit();
 initMenu();
 flyOnScroll();
 menuAnimation();
+renderData();
 

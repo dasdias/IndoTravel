@@ -49,9 +49,7 @@ export const flyOnScroll = () => {
   window.addEventListener('resize', () => {
     clientWidth = docEl.clientWidth;
     if (clientWidth < 758) {
-      console.log('flyElem: ', flyElem);
       if (flyElem) {
-        console.log('remove');
         flyElem.remove();
       }
       flyElemAvalible = true;
@@ -60,7 +58,6 @@ export const flyOnScroll = () => {
         calcPositionFly();
         flyElem = createFlyElement();
         flyElemAvalible = false;
-        console.log('create > 758');
       }
     }
   });
