@@ -41,6 +41,9 @@ export const menuAnimation = () => {
   };
 
   headerMenuButton.addEventListener('click', () => {
+    if (!headerMenu.classList.contains('header__menu_active')) {
+      flag = 1;
+    }
     startAnimation(duration, (progress) => {
       const deg = progress * degrees;
       const scale = progress;
