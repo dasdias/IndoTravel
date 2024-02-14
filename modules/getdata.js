@@ -29,6 +29,7 @@ const createPeopleElements = (data, classes) => {
 
 export const renderData = async () => {
   const data = await getData();
+  console.log('data: ', data);
   const tourDate = document.
     querySelector('.tour__select-wrapper_date .tour__select');
   const tourPeople = document.
@@ -39,13 +40,13 @@ export const renderData = async () => {
     querySelector('.reservation__select-wrapper_people .reservation__select');
 
   const tourDateElements = createDataElements(data, ['tour__option']);
-  // tourDate.innerHTML =
-  // '<option value="" class="tour__option">Выбери дату</option>';
-  // tourDate.append(...tourDateElements);
+  tourDate.innerHTML =
+  '<option value="" class="tour__option">Выбери дату</option>';
+  tourDate.append(...tourDateElements);
   const tourPeopleElements = createPeopleElements(data, ['tour__option']);
-  // tourPeople.innerHTML = `
-  //   <option value="" class="tour__option">Количество человек</option>`;
-  // tourPeople.append(...tourPeopleElements);
+  tourPeople.innerHTML = `
+    <option value="" class="tour__option">Количество человек</option>`;
+  tourPeople.append(...tourPeopleElements);
 
   const reservationDateElements =
     createDataElements(data, ['tour__option', 'reservation__option']);
