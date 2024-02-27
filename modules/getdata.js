@@ -2,6 +2,8 @@ const reservationPeople = document.querySelector('#reservation__people');
 const reservationDate = document.querySelector('#reservation__date');
 const tourPeople = document.querySelector('#tour__people');
 const tourDate = document.querySelector('#tour__date');
+const reservationData = document.querySelector('.reservation__data');
+const reservationPrice = document.querySelector('.reservation__price');
 
 // const tourDate = document.
 //     querySelector('.tour__select-wrapper_date .tour__select');
@@ -20,7 +22,6 @@ const getData = async () => {
 
 const createDataElements = (data, classes) => {
   const elements = data.map(item => {
-    // tour__option reservation__option
     const option = document.createElement('option');
     option.classList.add(...classes);
     option.setAttribute('value', item.date);
@@ -44,13 +45,20 @@ const createPeopleElements =
     return elements;
   };
 
-export const renderData = async () => {
-  const data = await getData();
-  const massMaxPeople = data.map(item => item['max-people']);
-  const massMinPeople = data.map(item => item['min-people']);
+const nimMaxPeople = (arr) => {
+  const massMaxPeople = arr.map(item => item['max-people']);
+  const massMinPeople = arr.map(item => item['min-people']);
   const maxCountPeople = Math.max.apply(null, massMaxPeople);
   const minCountPeople = Math.min.apply(null, massMinPeople);
+  return {
+    minCountPeople,
+    maxCountPeople,
+  };
+};
 
+export const renderData = async () => {
+  const data = await getData();
+  const {minCountPeople, maxCountPeople} = nimMaxPeople(data);
 
   const tourDateElements = createDataElements(data, ['tour__option']);
   tourDate.innerHTML =
@@ -78,9 +86,8 @@ export const renderData = async () => {
   reservationPeople.append(...reservationPeopleElements);
 };
 
-const changeData = async (e) => {
+const changeDateTour = async (e) => {
   const data = await getData();
-  console.log('data: ', data);
   const target = e.target;
   const countPeople = target.value;
   const newData = data.filter(item => {
@@ -89,30 +96,83 @@ const changeData = async (e) => {
       return item;
     }
   });
+  console.log('data: ', data);
+  console.log('newData: ', newData);
 
   const tourDateElements = createDataElements(newData, ['tour__option']);
   tourDate.innerHTML =
   '<option value="" class="tour__option">Выбери дату</option>';
   tourDate.append(...tourDateElements);
-
-  const reservationDateElements =
-    createDataElements(newData, ['tour__option', 'reservation__option']);
-  reservationDate.innerHTML =
-    '<option value="" class="tour__option">Дата путешествия</option>';
-  reservationDate.append(...reservationDateElements);
 };
 
-const changePeople = async (e) => {
+const changePeopleTour = async (e) => {
   const data = await getData();
-  console.log('data: ', data);
   const target = e.target;
   const targetValue = target.value;
-  console.log('targetValue: ', targetValue);
+  const currentValue = tourPeople.value;
+
+  const newDatePeople = data.filter((item) => {
+    if (targetValue === item.date) {
+      return item;
+    }
+  });
+
+  const {minCountPeople, maxCountPeople} = nimMaxPeople(newDatePeople);
+
+  const reservationPeopleElements = createPeopleElements(newDatePeople,
+    ['tour__option', 'reservation__option'], minCountPeople, maxCountPeople);
+
+  tourPeople.innerHTML = `<option value=""
+    class="tour__option reservation__option">Количество человек</option>`;
+  tourPeople.append(...reservationPeopleElements);
+  if (currentValue) {
+    tourPeople.value = currentValue;
+  }
 };
 
-reservationDate.addEventListener('change', changePeople);
-tourDate.addEventListener('change', changePeople);
+
+// const changeDateReserv = async (e) => {
+//   const data = await getData();
+//   const target = e.target;
+//   const countPeople = target.value;
+//   const newData = data.filter(item => {
+//     if (+countPeople >= item['min-people'] &&
+//     +countPeople <= item['max-people']) {
+//       return item;
+//     }
+//   });
+
+//   const reservationDateElements =
+//     createDataElements(newData, ['tour__option', 'reservation__option']);
+//   reservationDate.innerHTML =
+//     '<option value="" class="tour__option">Дата путешествия</option>';
+//   reservationDate.append(...reservationDateElements);
+// };
 
 
-reservationPeople.addEventListener('change', changeData);
-tourPeople.addEventListener('change', changeData);
+// const changePeopleReserv = async (e) => {
+//   const data = await getData();
+//   const target = e.target;
+//   const targetValue = target.value;
+
+//   const newDatePeople = data.filter((item) => {
+//     if (targetValue === item.date) {
+//       return item;
+//     }
+//   });
+
+//   const {minCountPeople, maxCountPeople} = nimMaxPeople(newDatePeople);
+
+//   const reservationPeopleElements = createPeopleElements(data,
+//     ['tour__option', 'reservation__option'], minCountPeople, maxCountPeople);
+
+//   reservationPeople.innerHTML = `<option value=""
+//     class="tour__option reservation__option">Количество человек</option>`;
+//   reservationPeople.append(...reservationPeopleElements);
+// };
+
+// reservationDate.addEventListener('change', changePeopleReserv);
+// reservationPeople.addEventListener('change', changeDateReserv);
+
+tourDate.addEventListener('change', changePeopleTour);
+tourPeople.addEventListener('change', changeDateTour);
