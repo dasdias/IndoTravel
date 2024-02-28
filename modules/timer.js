@@ -1,4 +1,9 @@
 let timerId = 0;
+
+export const declOfNum = (number, words) => words[
+  (number % 100 > 4 && number % 100 < 20) ?
+  2 : [2, 0, 1, 1, 1, 2][(number % 10 < 5) ? Math.abs(number) % 10 : 5]];
+
 export const timer = (dedline) => {
   const getTimeRemaining = () => {
     const dateStop = new Date(dedline).getTime();
@@ -16,10 +21,6 @@ export const timer = (dedline) => {
 
     return {timeRemaining, second, minutes, hours, days};
   };
-
-  const declOfNum = (number, words) => words[
-    (number % 100 > 4 && number % 100 < 20) ?
-      2 : [2, 0, 1, 1, 1, 2][(number % 10 < 5) ? Math.abs(number) % 10 : 5]];
 
   const renderTimer = () => {
     const timerCountDays = document.querySelector('.timer__count_days');
