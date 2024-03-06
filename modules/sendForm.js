@@ -1,3 +1,4 @@
+import {modal} from './modal.js';
 import {createModal} from './modalconfirm.js';
 
 // const reservationTitle = document.querySelector('.reservation__title');
@@ -43,9 +44,22 @@ const fetchRequest = async (url, {
 
 
 export const sendData = () => {
-  document.addEventListener('submit', (e) => {
+  document.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formTarget = e.target;
+
+    const formData = {
+      name: formTarget.name?.value || '',
+      dates: formTarget.dates?.value || '',
+      peopleCount: +formTarget.people?.value || '',
+      price: reservationPrice.textContent?.trim() || '',
+      phone: formTarget.phone?.value || '',
+      mail: formTarget.mail?.value || '',
+    };
+
+    const checkConfirm = await modal(formData);
+
+    if (!checkConfirm) return;
 
     fetchRequest(URL + 'posts', {
       method: 'POST',
@@ -71,6 +85,11 @@ export const sendData = () => {
         }
         const {modalWrap} = createModal(`Ваша заявка успешно <br> отправлена`,
           `Наши менеджеры свяжутся с вами в течении 3-х рабочих дней`, true);
+
+        for (let i = 0; i < formTarget.elements.length; i++) {
+          const element = formTarget.elements[i];
+          element.setAttribute('disabled', true);
+        }
 
         modalWrap.addEventListener('click', (e) => {
           const target = e.target;
