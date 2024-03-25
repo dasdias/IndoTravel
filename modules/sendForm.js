@@ -4,6 +4,9 @@ import {createModal} from './modalconfirm.js';
 // const reservationTitle = document.querySelector('.reservation__title');
 
 const reservationPrice = document.querySelector('.reservation__price');
+const tourForm = document.querySelector('.tour__form');
+const reservationForm = document.querySelector('.reservation__form');
+const footerForm = document.querySelector('.footer__form');
 
 
 const URL = 'https://jsonplaceholder.typicode.com/';
