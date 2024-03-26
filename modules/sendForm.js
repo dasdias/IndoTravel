@@ -4,10 +4,7 @@ import {createModal} from './modalconfirm.js';
 // const reservationTitle = document.querySelector('.reservation__title');
 
 const reservationPrice = document.querySelector('.reservation__price');
-const tourForm = document.querySelector('.tour__form');
-const reservationForm = document.querySelector('.reservation__form');
-const footerForm = document.querySelector('.footer__form');
-
+const reservationName = document.getElementById('reservation__name');
 
 const URL = 'https://jsonplaceholder.typicode.com/';
 
@@ -50,6 +47,12 @@ export const sendData = () => {
   document.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formTarget = e.target;
+    const regexpName = /(\b.*\b){3}/gi;
+
+    console.log('regexpName.test(reservationName.value: ', regexpName.test(reservationName.value));
+    if (regexpName.test(reservationName.value)) {
+      console.log('Ок');
+    }
 
     const formData = {
       name: formTarget.name?.value || '',
@@ -63,6 +66,7 @@ export const sendData = () => {
     const checkConfirm = await modal(formData);
 
     if (!checkConfirm) return;
+
 
     fetchRequest(URL + 'posts', {
       method: 'POST',
