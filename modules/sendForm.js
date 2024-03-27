@@ -47,11 +47,16 @@ export const sendData = () => {
   document.addEventListener('submit', async (e) => {
     e.preventDefault();
     const formTarget = e.target;
-    const regexpName = /(\b.*\b){3}/gi;
+    const regexpName = /[а-яА-ЯёЁ\w-]+/ig;
 
-    console.log('regexpName.test(reservationName.value: ', regexpName.test(reservationName.value));
-    if (regexpName.test(reservationName.value)) {
-      console.log('Ок');
+    const countWorld = reservationName.value.match(regexpName);
+    if (countWorld?.length < 3) {
+      reservationName.style.border = `1px solid red`;
+      reservationName.style.borderRadius = `8px`;
+      return;
+    } else {
+      reservationName.style.border = ``;
+      reservationName.style.borderRadius = ``;
     }
 
     const formData = {
@@ -72,7 +77,6 @@ export const sendData = () => {
       method: 'POST',
       callback(err, data) {
         if (err) {
-          console.warn(err, data);
           formTarget.textContent = err;
           const {modalWrap} = createModal(`Упс... Что-то пошло не так`,
             `Не удалось отправить заявку.
