@@ -5,7 +5,7 @@ import {flyOnScroll} from '/modules/animateScroll.js';
 import {menuAnimation} from '/modules/menuanimation.js';
 import {renderData} from '/modules/getdata.js';
 import {sendData} from '/modules/sendForm.js';
-import validateReservationForm from '../modules/validateFields.js';
+import {validateReservationForm} from '../modules/validateFields.js';
 
 
 const timerInit = () => {
